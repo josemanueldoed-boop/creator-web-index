@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="admin.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-dot"></span>
+      <span>Admin Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-panel="title">
+        <span class="nav-icon">◈</span> Título & Hero
+      </button>
+      <button class="nav-btn" data-panel="sections">
+        <span class="nav-icon">▦</span> Secciones
+      </button>
+      <button class="nav-btn" data-panel="containers">
+        <span class="nav-icon">⊞</span> Contenedores
+      </button>
+      <button class="nav-btn" data-panel="footer">
+        <span class="nav-icon">◻</span> Footer
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-dot" id="firebase-status"></div>
+      <span id="firebase-status-text">Conectando...</span>
+    </div>
+  </aside>
+
+  <!-- MAIN PANEL -->
+  <main class="admin-main">
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast"></div>
+
+    <!-- HEADER -->
+    <header class="admin-header">
+      <div>
+        <h1 class="admin-heading" id="panel-heading">Título & Hero</h1>
+        <p class="admin-subheading" id="panel-subheading">Edita el nombre y subtítulo del sitio</p>
+      </div>
+      <a href="index.html" target="_blank" class="preview-btn">↗ Ver Sitio</a>
+    </header>
+
+    <!-- ===== PANEL: TÍTULO ===== -->
+    <section class="panel active" id="panel-title">
+      <div class="card">
+        <div class="card-header">Nombre del Sitio (Header & Nav)</div>
+        <div class="card-body">
+          <div class="field-group">
+            <label>Título Principal</label>
+            <input type="text" id="input-title" placeholder="Ej: Mi Empresa" />
+          </div>
+          <div class="field-group">
+            <label>Subtítulo / Tagline</label>
+            <input type="text" id="input-subtitle" placeholder="Ej: Calidad que habla por sí sola" />
+          </div>
+          <div class="field-group">
+            <label>Nombre en Navbar / Logo</label>
+            <input type="text" id="input-nav-logo" placeholder="Ej: MiSitio" />
+          </div>
+          <button class="btn-save" id="btn-save-title">Guardar Cambios</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PANEL: SECCIONES ===== -->
+    <section class="panel" id="panel-sections">
+      <div class="card">
+        <div class="card-header">Agregar Nueva Sección</div>
+        <div class="card-body">
+          <div class="field-group">
+            <label>Nombre de la Sección</label>
+            <input type="text" id="input-section-name" placeholder="Ej: Servicios, Productos..." />
+          </div>
+          <div class="field-group">
+            <label>Subtítulo (opcional)</label>
+            <input type="text" id="input-section-subtitle" placeholder="Descripción breve de la sección" />
+          </div>
+          <div class="field-group">
+            <label>Orden (número)</label>
+            <input type="number" id="input-section-order" value="1" min="1"/>
+          </div>
+          <button class="btn-save" id="btn-add-section">+ Agregar Sección</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Secciones Existentes</div>
+        <div class="card-body">
+          <div id="sections-list" class="items-list">
+            <p class="empty-msg">Cargando secciones...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PANEL: CONTENEDORES ===== -->
+    <section class="panel" id="panel-containers">
+      <div class="card">
+        <div class="card-header">Agregar Contenedor a una Sección</div>
+        <div class="card-body">
+          <div class="field-group">
+            <label>Sección de destino</label>
+            <select id="select-section-for-container">
+              <option value="">-- Seleccionar sección --</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Título del contenedor</label>
+            <input type="text" id="input-container-title" placeholder="Ej: Producto Premium" />
+          </div>
+          <div class="field-group">
+            <label>Texto / Descripción</label>
+            <textarea id="input-container-text" rows="3" placeholder="Descripción del contenedor..."></textarea>
+          </div>
+          <div class="field-group">
+            <label>URL de Imagen (opcional)</label>
+            <input type="text" id="input-container-image" placeholder="https://..." />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label>Tipo de contenido</label>
+              <select id="input-container-type">
+                <option value="text">Solo Texto</option>
+                <option value="image">Solo Imagen</option>
+                <option value="both">Imagen + Texto</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Tamaño</label>
+              <select id="input-container-size">
+                <option value="small">Pequeño</option>
+                <option value="medium" selected>Mediano</option>
+                <option value="large">Grande</option>
+                <option value="full">Completo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Columnas en la sección (1 - 4)</label>
+            <input type="number" id="input-container-cols" value="3" min="1" max="4" />
+          </div>
+
+          <button class="btn-save" id="btn-add-container">+ Agregar Contenedor</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Contenedores Existentes</div>
+        <div class="card-body">
+          <div id="containers-list" class="items-list">
+            <p class="empty-msg">Cargando contenedores...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PANEL: FOOTER ===== -->
+    <section class="panel" id="panel-footer">
+      <div class="card">
+        <div class="card-header">Información del Footer</div>
+        <div class="card-body">
+          <div class="field-group">
+            <label>Nombre de la Marca (Footer)</label>
+            <input type="text" id="input-footer-brand" placeholder="Ej: MiEmpresa" />
+          </div>
+          <div class="field-group">
+            <label>Dirección</label>
+            <input type="text" id="input-footer-address" placeholder="Ej: Calle 123, Bogotá, Colombia" />
+          </div>
+          <div class="field-group">
+            <label>Derechos de Autor</label>
+            <input type="text" id="input-footer-copyright" placeholder="Ej: © 2025 MiEmpresa. Todos los derechos reservados." />
+          </div>
+
+          <div class="divider"></div>
+          <div class="card-header" style="padding:0 0 1rem 0; border:none;">Redes Sociales</div>
+
+          <div id="social-links-editor"></div>
+          <button class="btn-outline" id="btn-add-social">+ Agregar Red Social</button>
+
+          <div class="divider"></div>
+          <button class="btn-save" id="btn-save-footer">Guardar Footer</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="firebase-connect.js"></script>
+  <script type="module" src="admin-editor.js"></script>
+</body>
+</html>

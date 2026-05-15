@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="page-title-tag">Mi Sitio Web</title>
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <nav class="nav-bar">
+      <div class="nav-logo" id="nav-logo-text">Mi Sitio</div>
+      <div class="nav-links" id="nav-links-container"></div>
+    </nav>
+    <div class="hero-content">
+      <h1 class="site-title" id="main-title">Bienvenido</h1>
+      <p class="site-subtitle" id="main-subtitle">Tu sitio web personalizable</p>
+    </div>
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </header>
+
+  <!-- SECCIONES DINÁMICAS -->
+  <main id="main-content">
+    <!-- Las secciones se generan dinámicamente desde Firebase -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span id="footer-brand-name">Mi Sitio</span>
+      </div>
+      <div class="footer-social" id="footer-social-links"></div>
+      <div class="footer-info">
+        <p id="footer-address"></p>
+        <p id="footer-copyright"></p>
+      </div>
+    </div>
+    <div class="footer-glow"></div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script type="module" src="firebase-connect.js"></script>
+  <script type="module" src="index-render.js"></script>
+</body>
+</html>
